@@ -64,7 +64,31 @@
     nav.side a { white-space: nowrap; border-left: 0; }
     main { padding: 0 18px 90px; }
     section { padding-top: 56px; }
+    .card { overflow-x: auto; }
+    .only-desk { display: none !important; }
+    .only-phone { display: block; }
+    .only-phone .nlabel { font-size: 18px; }
+    .only-phone .nsub { font-size: 14px; }
+    .only-phone .ledge { font-size: 13px; }
+    .only-phone .wire { stroke-width: 2.6; }
+    #compras table, #compras tbody, #compras tr, #compras td { display: block; width: auto; }
+    #compras th { display: none; }
+    #compras tr { padding: 4px 0 12px; border-bottom: 1px solid var(--line); }
+    #compras tr:last-child { border-bottom: 0; padding-bottom: 0; }
+    #compras td { border: 0; padding: 0; overflow-wrap: anywhere; }
+    #compras td::before {
+      content: attr(data-l);
+      display: block;
+      margin-top: 10px;
+      color: var(--faint);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    #compras code { white-space: normal; overflow-wrap: anywhere; }
   }
+  @media (min-width: 901px) { svg.only-phone { display: none !important; } }
 
   /* ── type ───────────────────────────────── */
   h1 { font-size: clamp(34px, 5vw, 52px); line-height: 1.05; letter-spacing: -.035em; margin: 10px 0 14px; }
@@ -221,7 +245,7 @@
   <h2>A fazenda conectada</h2>
   <p class="lede">Internet só na sede, no WiFi que já existe. No campo, rádio LoRa 915 MHz. Dois caminhos com funções diferentes: a linha verde leva dado e comando do aplicativo; a âmbar tracejada é só o aviso de segurança da bomba — e não passa pela sede.</p>
   <div class="card rv" style="margin-top:18px">
-    <svg class="diagrama" viewBox="0 0 900 470" role="img" aria-label="Mapa da fazenda: servidor, gateway, central, ponta e bomba">
+    <svg class="diagrama only-desk" viewBox="0 0 900 470" role="img" aria-label="Mapa da fazenda: servidor, gateway, central, ponta e bomba">
       <line class="wire" x1="450" y1="70" x2="450" y2="128"/>
       <line class="wire" x1="450" y1="196" x2="340" y2="300"/>
       <line class="wire" x1="450" y1="196" x2="700" y2="300"/>
@@ -266,6 +290,58 @@
         <animateMotion dur="7.5s" begin=".6s" repeatCount="indefinite" path="M205,345 L350,345 L350,300 L450,196 L450,70"/>
       </circle>
       <circle class="pkt safe beat" r="5.5" cx="527" cy="376"/>
+    </svg>
+    <svg class="diagrama only-phone" viewBox="-18 0 396 640" role="img" aria-label="Mapa da fazenda no celular">
+      <line class="wire" x1="168" y1="68" x2="168" y2="108"/>
+      <line class="wire" x1="168" y1="184" x2="168" y2="228"/>
+      <line class="wire" x1="168" y1="320" x2="168" y2="360"/>
+      <line class="wire" x1="308" y1="146" x2="340" y2="146"/>
+      <line class="wire" x1="340" y1="146" x2="340" y2="510"/>
+      <line class="wire" x1="340" y1="510" x2="308" y2="510"/>
+      <line class="wire safe" x1="28" y1="274" x2="22" y2="274"/>
+      <line class="wire safe" x1="22" y1="274" x2="22" y2="524"/>
+      <line class="wire safe" x1="22" y1="524" x2="28" y2="524"/>
+      <text class="ledge" x="180" y="92">WiFi</text>
+      <text class="ledge" x="180" y="212">LoRa</text>
+      <text class="ledge" x="348" y="330" text-anchor="end">LoRa</text>
+
+      <rect class="nbox" x="28" y="12" width="280" height="56" rx="12"/>
+      <text class="nlabel" x="168" y="46" text-anchor="middle">Servidor e app</text>
+
+      <rect class="nbox hot" x="28" y="108" width="280" height="76" rx="12"/>
+      <text class="nlabel" x="168" y="140" text-anchor="middle">Gateway</text>
+      <text class="nsub" x="168" y="164" text-anchor="middle">a única caixa na internet</text>
+
+      <rect class="nbox hot" x="28" y="228" width="280" height="92" rx="12"/>
+      <text class="nlabel" x="168" y="262" text-anchor="middle">Central</text>
+      <text class="nsub" x="168" y="286" text-anchor="middle">cérebro do pivô</text>
+      <text class="nsub" x="168" y="306" text-anchor="middle">roda sozinha se a sede cair</text>
+
+      <rect class="nbox" x="28" y="360" width="280" height="72" rx="12"/>
+      <text class="nlabel" x="168" y="392" text-anchor="middle">Ponta</text>
+      <text class="nsub" x="168" y="416" text-anchor="middle">GPS na última torre</text>
+
+      <rect class="nbox" x="28" y="476" width="280" height="96" rx="12"/>
+      <text class="nlabel" x="168" y="508" text-anchor="middle">Bomba</text>
+      <text class="nsub" x="168" y="532" text-anchor="middle">pressão sobe direto ao Gateway</text>
+      <text class="nsub" x="168" y="554" text-anchor="middle">sem aviso da Central: desliga</text>
+
+      <circle class="pkt" r="8" opacity="0">
+        <animate attributeName="opacity" to="1" dur=".05s" fill="freeze"/>
+        <animateMotion dur="6.5s" repeatCount="indefinite" path="M168,68 L168,184 L168,228"/>
+      </circle>
+      <circle class="pkt" r="8" opacity="0">
+        <animate attributeName="opacity" to="1" dur=".05s" begin="1.4s" fill="freeze"/>
+        <animateMotion dur="6s" begin="1.4s" repeatCount="indefinite" path="M308,146 L340,146 L340,510 L308,510"/>
+      </circle>
+      <circle class="pkt dark" r="8" opacity="0">
+        <animate attributeName="opacity" to="1" dur=".05s" begin=".6s" fill="freeze"/>
+        <animateMotion dur="7.5s" begin=".6s" repeatCount="indefinite" path="M168,396 L168,320 L168,184 L168,68"/>
+      </circle>
+      <circle class="pkt safe" r="8" opacity="0">
+        <animate attributeName="opacity" to="1" dur=".05s" begin=".2s" fill="freeze"/>
+        <animateMotion dur="4s" begin=".2s" repeatCount="indefinite" path="M28,274 L22,274 L22,524 L28,524"/>
+      </circle>
     </svg>
     <p class="lede" style="font-size:13px;margin-top:8px">O ponto escuro é a coordenada da Ponta subindo: Central → Gateway → servidor. O ponto âmbar pulsando é o heartbeat — se ele some por alguns segundos, a bomba desliga sozinha, com ou sem internet na sede.</p>
   </div>
@@ -360,8 +436,8 @@
     <button class="chip" data-plano="p2">Mais longe · 2 repetidores</button>
   </div>
   <div class="card rv">
-    <svg class="diagrama" viewBox="0 0 900 230" role="img" aria-label="Cenários de enlace de rádio">
-      <g id="p0">
+    <svg class="diagrama only-desk" viewBox="0 0 900 230" role="img" aria-label="Cenários de enlace de rádio">
+      <g id="p0" class="p0">
         <rect class="nbox hot" x="40" y="80" width="150" height="60" rx="10"/>
         <text class="nlabel" x="115" y="106" text-anchor="middle">Gateway</text>
         <text class="nsub" x="115" y="124" text-anchor="middle">sede · mastro</text>
@@ -372,7 +448,7 @@
         <circle class="pkt" r="5.5"><animateMotion dur="3.4s" repeatCount="indefinite" path="M190,110 L710,110"/></circle>
         <text class="ledge" x="450" y="95" text-anchor="middle">um salto · a maioria dos pivôs</text>
       </g>
-      <g id="p1" style="display:none">
+      <g id="p1" class="p1" style="display:none">
         <rect class="nbox hot" x="40" y="80" width="140" height="60" rx="10"/>
         <text class="nlabel" x="110" y="106" text-anchor="middle">Gateway</text>
         <path d="M330,150 l28,-44 l28,44 Z" fill="var(--panel2)" stroke="var(--line2)"/>
@@ -387,7 +463,7 @@
         <circle class="pkt" r="5.5"><animateMotion dur="4.2s" repeatCount="indefinite" path="M180,105 L470,78 L610,78 L720,105"/></circle>
         <text class="ledge" x="450" y="210" text-anchor="middle">o salto passa por cima do obstáculo · atraso de segundos, aceitável para ligar e desligar</text>
       </g>
-      <g id="p2" style="display:none">
+      <g id="p2" class="p2" style="display:none">
         <rect class="nbox hot" x="30" y="84" width="120" height="56" rx="10"/>
         <text class="nlabel" x="90" y="108" text-anchor="middle">Gateway</text>
         <rect class="nbox" x="250" y="44" width="120" height="52" rx="10"/>
@@ -402,6 +478,50 @@
         <circle class="pkt" r="5.5"><animateMotion dur="5s" repeatCount="indefinite" path="M150,108 L250,72 L370,70 L520,70 L640,72 L750,108"/></circle>
         <text class="ledge" x="450" y="210" text-anchor="middle">dois saltos · três, só com motivo medido no campo</text>
       </g>
+    </svg>
+    <svg class="diagrama only-phone p0" viewBox="0 0 360 300" role="img" aria-label="Enlace direto no celular">
+      <rect class="nbox hot" x="40" y="16" width="280" height="78" rx="12"/>
+      <text class="nlabel" x="180" y="48" text-anchor="middle">Gateway</text>
+      <text class="nsub" x="180" y="72" text-anchor="middle">sede · mastro</text>
+      <line class="wire" x1="180" y1="94" x2="180" y2="156"/>
+      <rect class="nbox" x="40" y="156" width="280" height="78" rx="12"/>
+      <text class="nlabel" x="180" y="188" text-anchor="middle">Central</text>
+      <text class="nsub" x="180" y="212" text-anchor="middle">pivô perto, visão livre</text>
+      <circle class="pkt" r="8"><animateMotion dur="3.4s" repeatCount="indefinite" path="M180,94 L180,156"/></circle>
+      <text class="ledge" x="180" y="270" text-anchor="middle">um salto · a maioria dos pivôs</text>
+    </svg>
+    <svg class="diagrama only-phone p1" viewBox="0 0 360 500" style="display:none" role="img" aria-label="Um repetidor no celular">
+      <rect class="nbox hot" x="40" y="12" width="280" height="70" rx="12"/>
+      <text class="nlabel" x="180" y="54" text-anchor="middle">Gateway</text>
+      <path d="M152,168 l28,-44 l28,44 Z" fill="var(--panel2)" stroke="var(--line2)"/>
+      <text class="nsub" x="180" y="188" text-anchor="middle">mata / morro</text>
+      <rect class="nbox" x="40" y="210" width="280" height="78" rx="12"/>
+      <text class="nlabel" x="180" y="242" text-anchor="middle">Repetidor</text>
+      <text class="nsub" x="180" y="266" text-anchor="middle">antena alta, vê os dois lados</text>
+      <rect class="nbox" x="40" y="340" width="280" height="70" rx="12"/>
+      <text class="nlabel" x="180" y="382" text-anchor="middle">Central</text>
+      <line class="wire" x1="180" y1="82" x2="180" y2="124"/>
+      <line class="wire" x1="180" y1="168" x2="180" y2="210"/>
+      <line class="wire" x1="180" y1="288" x2="180" y2="340"/>
+      <circle class="pkt" r="8"><animateMotion dur="4.2s" repeatCount="indefinite" path="M180,82 L180,168 L180,288 L180,340"/></circle>
+      <text class="ledge" x="180" y="440" text-anchor="middle">o salto passa por cima do obstáculo</text>
+      <text class="ledge" x="180" y="460" text-anchor="middle">atraso de segundos, ok para ligar</text>
+    </svg>
+    <svg class="diagrama only-phone p2" viewBox="0 0 360 560" style="display:none" role="img" aria-label="Dois repetidores no celular">
+      <rect class="nbox hot" x="40" y="12" width="280" height="68" rx="12"/>
+      <text class="nlabel" x="180" y="52" text-anchor="middle">Gateway</text>
+      <rect class="nbox" x="40" y="130" width="280" height="68" rx="12"/>
+      <text class="nlabel" x="180" y="170" text-anchor="middle">Repetidor 1</text>
+      <rect class="nbox" x="40" y="248" width="280" height="68" rx="12"/>
+      <text class="nlabel" x="180" y="288" text-anchor="middle">Repetidor 2</text>
+      <rect class="nbox" x="40" y="366" width="280" height="68" rx="12"/>
+      <text class="nlabel" x="180" y="406" text-anchor="middle">Central</text>
+      <line class="wire" x1="180" y1="80" x2="180" y2="130"/>
+      <line class="wire" x1="180" y1="198" x2="180" y2="248"/>
+      <line class="wire" x1="180" y1="316" x2="180" y2="366"/>
+      <circle class="pkt" r="8"><animateMotion dur="5s" repeatCount="indefinite" path="M180,80 L180,198 L180,316 L180,366"/></circle>
+      <text class="ledge" x="180" y="470" text-anchor="middle">dois saltos</text>
+      <text class="ledge" x="180" y="492" text-anchor="middle">três, só com motivo medido no campo</text>
     </svg>
   </div>
   <div class="grid3" style="margin-top:14px">
@@ -490,19 +610,19 @@
   <div class="card rv" style="margin-top:18px">
     <table>
       <tr><th>Peça</th><th>Modelo</th><th>Vai em</th><th>Conferir no anúncio</th></tr>
-      <tr><td>CPU</td><td><code>ESP32-S3-DevKitC-1 N16R8</code></td><td>Todas (5)</td><td>"S3", "N16R8", dois USB-C · ~R$ 65</td></tr>
-      <tr><td>Rádio</td><td><code>Ebyte E22-900M22S</code></td><td>Todas (5)</td><td>letra <b>M</b> (SPI), <b>900</b> (915 MHz), <b>22S</b> — nunca T, 400 ou 30S</td></tr>
-      <tr><td>GPS</td><td><code>u-blox NEO-M8N</code> + antena ativa</td><td>Ponta</td><td>M8N ou M10, antena externa SMA — nunca NEO-6M</td></tr>
-      <tr><td>Relé</td><td>Finder série 40, bobina 12 V</td><td>Central (5) · Bomba (1)</td><td>bobina 12 V, contato 250 V, soquete de trilho</td></tr>
-      <tr><td>Entrada isolada</td><td>Opto PC817 ou módulo de trilho</td><td>Central (4)</td><td>isolação, não divisor resistivo</td></tr>
-      <tr><td>Pressão</td><td>Transmissor 4–20 mA, 0–10 bar (classe WIKA A-10)</td><td>Bomba</td><td>4–20 mA, não 0–5 V · + <code>ADS1115</code> + resistor 150 Ω</td></tr>
-      <tr><td>Antena campo</td><td><code>AN3-915B</code> 3 dBi</td><td>Central · Bomba · Ponta</td><td>915 MHz, SMA macho, cabo ≤ 1 m</td></tr>
-      <tr><td>Antena mastro</td><td><code>TX915-BLG-40</code> 5,5 dBi</td><td>Gateway · Repetidor</td><td>915 MHz, N macho + adaptador N→SMA curto</td></tr>
-      <tr><td>Fonte painel</td><td>Mean Well <code>HDR-30-12</code></td><td>Central · Bomba</td><td>trilho DIN, entrada 85–264 V, 12 V 2 A</td></tr>
-      <tr><td>Fonte torre</td><td>classe <code>IRM-10-12</code></td><td>Ponta</td><td>só se a torre tiver 100–240 V — medir no piloto</td></tr>
-      <tr><td>Conversor</td><td>12 V → 5 V, 2 A</td><td>Todas</td><td>a placa nunca liga em 12 V direto</td></tr>
-      <tr><td>Solar</td><td>painel 20 W + controlador + bateria 12 V 7 Ah</td><td>Repetidor sem tomada</td><td>bateria selada; consumo da caixa ~1 W</td></tr>
-      <tr><td>Caixa</td><td>Policarbonato IP65 / IP66 (Ponta)</td><td>Todas</td><td>prensa-cabo e válvula de respiro</td></tr>
+      <tr><td data-l="Peça">CPU</td><td data-l="Modelo"><code>ESP32-S3-DevKitC-1 N16R8</code></td><td data-l="Vai em">Todas (5)</td><td data-l="Conferir no anúncio">"S3", "N16R8", dois USB-C · ~R$ 65</td></tr>
+      <tr><td data-l="Peça">Rádio</td><td data-l="Modelo"><code>Ebyte E22-900M22S</code></td><td data-l="Vai em">Todas (5)</td><td data-l="Conferir no anúncio">letra <b>M</b> (SPI), <b>900</b> (915 MHz), <b>22S</b> — nunca T, 400 ou 30S</td></tr>
+      <tr><td data-l="Peça">GPS</td><td data-l="Modelo"><code>u-blox NEO-M8N</code> + antena ativa</td><td data-l="Vai em">Ponta</td><td data-l="Conferir no anúncio">M8N ou M10, antena externa SMA — nunca NEO-6M</td></tr>
+      <tr><td data-l="Peça">Relé</td><td data-l="Modelo">Finder série 40, bobina 12 V</td><td data-l="Vai em">Central (5) · Bomba (1)</td><td data-l="Conferir no anúncio">bobina 12 V, contato 250 V, soquete de trilho</td></tr>
+      <tr><td data-l="Peça">Entrada isolada</td><td data-l="Modelo">Opto PC817 ou módulo de trilho</td><td data-l="Vai em">Central (4)</td><td data-l="Conferir no anúncio">isolação, não divisor resistivo</td></tr>
+      <tr><td data-l="Peça">Pressão</td><td data-l="Modelo">Transmissor 4–20 mA, 0–10 bar (classe WIKA A-10)</td><td data-l="Vai em">Bomba</td><td data-l="Conferir no anúncio">4–20 mA, não 0–5 V · + <code>ADS1115</code> + resistor 150 Ω</td></tr>
+      <tr><td data-l="Peça">Antena campo</td><td data-l="Modelo"><code>AN3-915B</code> 3 dBi</td><td data-l="Vai em">Central · Bomba · Ponta</td><td data-l="Conferir no anúncio">915 MHz, SMA macho, cabo ≤ 1 m</td></tr>
+      <tr><td data-l="Peça">Antena mastro</td><td data-l="Modelo"><code>TX915-BLG-40</code> 5,5 dBi</td><td data-l="Vai em">Gateway · Repetidor</td><td data-l="Conferir no anúncio">915 MHz, N macho + adaptador N→SMA curto</td></tr>
+      <tr><td data-l="Peça">Fonte painel</td><td data-l="Modelo">Mean Well <code>HDR-30-12</code></td><td data-l="Vai em">Central · Bomba</td><td data-l="Conferir no anúncio">trilho DIN, entrada 85–264 V, 12 V 2 A</td></tr>
+      <tr><td data-l="Peça">Fonte torre</td><td data-l="Modelo">classe <code>IRM-10-12</code></td><td data-l="Vai em">Ponta</td><td data-l="Conferir no anúncio">só se a torre tiver 100–240 V — medir no piloto</td></tr>
+      <tr><td data-l="Peça">Conversor</td><td data-l="Modelo">12 V → 5 V, 2 A</td><td data-l="Vai em">Todas</td><td data-l="Conferir no anúncio">a placa nunca liga em 12 V direto</td></tr>
+      <tr><td data-l="Peça">Solar</td><td data-l="Modelo">painel 20 W + controlador + bateria 12 V 7 Ah</td><td data-l="Vai em">Repetidor sem tomada</td><td data-l="Conferir no anúncio">bateria selada; consumo da caixa ~1 W</td></tr>
+      <tr><td data-l="Peça">Caixa</td><td data-l="Modelo">Policarbonato IP65 / IP66 (Ponta)</td><td data-l="Vai em">Todas</td><td data-l="Conferir no anúncio">prensa-cabo e válvula de respiro</td></tr>
     </table>
   </div>
   <p class="lede rv" style="font-size:13px;margin-top:10px">Pedido da fazenda típica (1 pivô, 1 casa de bombas): Gateway + Central + Ponta + Bomba. Segundo pivô na mesma sede e bomba: só Central + Ponta. Repetidor: 0 na maioria, 1–2 no trecho longo, decidido com medida.</p>
@@ -627,7 +747,10 @@ montaChain("central");
 /* ── plano de rádio ── */
 document.querySelectorAll("#tabs-radio .chip").forEach(b => b.addEventListener("click", () => {
   document.querySelectorAll("#tabs-radio .chip").forEach(x => x.classList.toggle("on", x === b));
-  ["p0", "p1", "p2"].forEach(id => document.getElementById(id).style.display = (id === b.dataset.plano ? "" : "none"));
+  ["p0", "p1", "p2"].forEach(id => {
+    const show = id === b.dataset.plano;
+    document.querySelectorAll("#radio ." + id).forEach(el => { el.style.display = show ? "" : "none"; });
+  });
 }));
 
 /* ── reveal on scroll ── */
