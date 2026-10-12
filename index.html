@@ -55,7 +55,12 @@
       border-right: 0; border-bottom: 1px solid var(--line);
       padding: 10px 14px; gap: 6px; background: rgba(12,19,16,.92); backdrop-filter: blur(8px); z-index: 50;
     }
-    .brand, nav.side .foot { display: none; }
+    .brand {
+      display: block; flex: none; align-self: center; margin: 0 4px 0 0;
+      position: sticky; left: 0; z-index: 2; white-space: nowrap;
+      background: #0c1310; padding: 4px 12px 4px 0;
+    }
+    nav.side .foot { display: none; }
     nav.side a { white-space: nowrap; border-left: 0; }
     main { padding: 0 18px 90px; }
     section { padding-top: 56px; }
